@@ -150,6 +150,25 @@
         //    ebook.next() // returns null
         // 🌟 HINT: remember about the `slice` method which strings and arrays have
         // ❗ Feel free to implement `back`, although this is not required nor graded
+        constructor(text, charsPerPage) {
+          this.text = text;
+          this.charsPerPage = charsPerPage;
+          this.pagesInBook = Math.ceil(text.length / charsPerPage);
+          this.currentPage = 0;
+        }
+        getPage(n) {
+          const startIndex = (n - 1) * this.charsPerPage;
+          const endIndex = startIndex + this.charsPerPage;
+          return this.text.slice(startIndex, endIndex);
+        }
+        next() {
+          const atEndOfBook = this.currentPage >= this.pagesInBook;
+          return !atEndOfBook ? this.getPage(++this.currentPage) : null;
+        }
+        back() {
+          const atStartOfBook = this.currentPage <= 1;
+          return !atStartOfBook ? this.getPage(--this.currentPage) : null;
+        }
       }
 
       // 👉 CHALLENGE 4 AntFarm
