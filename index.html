@@ -110,6 +110,28 @@
         //      * When engaging the safety, return "Safety enabled!"
         //      * When disengaging the safety, return "Safety disabled!"
         // 🌟 HINT: instances need to keep track of their maximum capacity as well as their current capacity
+        safetyOn = true;
+        constructor(totalMagCapacity) {
+          this.totalMagCapacity = totalMagCapacity;
+          this.ammo = totalMagCapacity;
+        }
+        shoot() {
+          return this.ammo-- && !this.safetyOn ? "Bang!" : "Click!";
+        }
+        reload(ammo) {
+          if (ammo < 1 || !(typeof ammo === "number")) {
+            return "Error reloading!";
+          } else if (ammo + this.ammo > this.totalMagCapacity) {
+            this.ammo = this.totalMagCapacity;
+          } else {
+            this.ammo = ammo + this.ammo;
+          }
+          return `${this.ammo} projectiles left!`;
+        }
+        toggleSafety() {
+          this.safetyOn = !this.safetyOn;
+          return this.safetyOn ? "Safety enabled!" : "Safety disabled!";
+        }
       }
 
       // 👉 CHALLENGE 3 EBook
